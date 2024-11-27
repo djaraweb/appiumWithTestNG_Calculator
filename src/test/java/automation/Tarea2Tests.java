@@ -1,6 +1,8 @@
 package automation;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -149,6 +151,26 @@ public class Tarea2Tests extends BaseTests {
 
         Logs.info("Presionar la flecha de atrás de arriba izquierda");
         driver.findElement(AppiumBy.accessibilityId("Navegar hacia arriba")).click();
+
+        Logs.info("Verificar que regrese a la página principal");
+        Assert.assertTrue(driver.findElement(AppiumBy.id("com.google.android.calculator:id/mode")).isDisplayed());
+    }
+
+    @Test(groups = {regression, smoke})
+    public void ejercicio7Test() {
+
+        Logs.info("Hacer clic en los 3 puntitos");
+        driver.findElement(AppiumBy.accessibilityId("Más opciones")).click();
+
+        Logs.info("Presionar History");
+        driver.findElement(AppiumBy.androidUIAutomator("text(\"Historial\")")).click();
+
+        Logs.info("Verificar que salga la página de History");
+        Assert.assertTrue(driver.findElement(AppiumBy.androidUIAutomator("text(\"Historial\")")).isDisplayed());
+
+        Logs.info("Presionar el botón atrás del celular");
+        driver.pressKey(new KeyEvent(AndroidKey.BACK));
+        //driver.findElement(AppiumBy.accessibilityId("Navegar hacia arriba")).click();
 
         Logs.info("Verificar que regrese a la página principal");
         Assert.assertTrue(driver.findElement(AppiumBy.id("com.google.android.calculator:id/mode")).isDisplayed());
