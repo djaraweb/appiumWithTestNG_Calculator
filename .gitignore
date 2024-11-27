@@ -33,4 +33,9 @@ build/
 .DS_Store
 
 ### Logs ###
-src/main/resources/logs
+src/test/resources/logs
+src/test/resources/pagesources
+src/test/resources/screenshots
+
+### Allure ###
+.allure/

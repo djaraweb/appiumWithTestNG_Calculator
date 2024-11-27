@@ -37,6 +37,15 @@ public abstract class BaseTests {
         driver.quit();
     }
 
+    protected void sleep(long timeMs) {
+        try {
+            Logs.info("Esperando por %d ms", timeMs);
+            Thread.sleep(timeMs);
+        } catch (InterruptedException e) {
+            Logs.error("Error al esperar: %s", e.getLocalizedMessage());
+        }
+    }
+
 
     private static AndroidDriver initDriver() {
         try {
@@ -50,8 +59,12 @@ public abstract class BaseTests {
 
     private static DesiredCapabilities getDesiredCapabilities() {
         final var desiredCapabilities = new DesiredCapabilities();
-        final var fileAPK = new File("calculator.apk");
+        final var fileAPK = new File("src/test/resources/apk/calculator.apk");
 
+        desiredCapabilities.setCapability("appium:autoGrantPermissions", true);
+        //desiredCapabilities.setCapability("appium:appWaitActivity", "com.google.android.apps.nexuslauncher.NexusLauncherActivity");
+        desiredCapabilities.setCapability("appium:platformName", "Android");
+        desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
         desiredCapabilities.setCapability("appium:app", fileAPK.getAbsolutePath());
         return desiredCapabilities;
     }
