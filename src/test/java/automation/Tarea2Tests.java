@@ -22,6 +22,7 @@ public class Tarea2Tests extends BaseTests {
         final var radianMode = driver.findElement(AppiumBy.id("com.google.android.calculator:id/mode"));
         softAssert.assertTrue(radianMode.isDisplayed());
         softAssert.assertEquals(radianMode.getText(), "RAD");
+        softAssert.assertAll();
 
         Logs.info("Verificar que en el menú azul diga DEG");
         final var switchToDegres = driver.findElement(AppiumBy.accessibilityId("cambiar a grados"));
@@ -54,8 +55,7 @@ public class Tarea2Tests extends BaseTests {
         Logs.info("El factorial del numero (%d) es: %d ", numeroAleatorio, factorial);
 
         Logs.info("Escribir el número con el simbolo de !(factorial)");
-        Actions actions = new Actions(driver);
-        actions
+        new Actions(driver)
                 .sendKeys(String.valueOf(numeroAleatorio))
                 .keyDown(Keys.SHIFT)
                 .sendKeys("1") // !
@@ -77,8 +77,7 @@ public class Tarea2Tests extends BaseTests {
         Logs.info("Generar 2 números enteros entre 100 y 250");
         final var numeroAleatorio1 = faker.number().numberBetween(100, 250);
         final var numeroAleatorio2 = faker.number().numberBetween(100, 250);
-        final var resultSuma = Helpers.getSuma(numeroAleatorio1, numeroAleatorio2);
-
+        final var resultSuma = numeroAleatorio1 + numeroAleatorio2;
 
         Logs.info("Escribir el 1er número: %d", numeroAleatorio1);
         Actions actions = new Actions(driver);
@@ -110,7 +109,7 @@ public class Tarea2Tests extends BaseTests {
         Logs.info("Generar 2 números enteros entre 10 y 100");
         final var numeroAleatorio1 = faker.number().numberBetween(10, 100);
         final var numeroAleatorio2 = faker.number().numberBetween(10, 100);
-        final var resultMultiply = Helpers.getMultiply(numeroAleatorio1, numeroAleatorio2);
+        final var resultMultiply = numeroAleatorio1 * numeroAleatorio2;
 
         Logs.info("Escribir el 1er número: %d", numeroAleatorio1);
         Actions actions = new Actions(driver);
@@ -170,7 +169,6 @@ public class Tarea2Tests extends BaseTests {
 
         Logs.info("Presionar el botón atrás del celular");
         driver.pressKey(new KeyEvent(AndroidKey.BACK));
-        //driver.findElement(AppiumBy.accessibilityId("Navegar hacia arriba")).click();
 
         Logs.info("Verificar que regrese a la página principal");
         Assert.assertTrue(driver.findElement(AppiumBy.id("com.google.android.calculator:id/mode")).isDisplayed());
