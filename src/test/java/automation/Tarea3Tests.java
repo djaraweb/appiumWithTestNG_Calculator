@@ -10,6 +10,11 @@ import utilities.Logs;
 
 public class Tarea3Tests extends BaseTests {
 
+    @Override
+    protected void setNameApkTesting() {
+        BaseTests.nameApkTesting = "calculator";
+    }
+
     private void hacerTab(String cadena) {
         char[] arrayChar = cadena.toCharArray();
         for (var c : arrayChar) {
