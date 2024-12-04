@@ -64,6 +64,7 @@ public abstract class BaseTests {
         desiredCapabilities.setCapability("appium:autoGrantPermissions", true);
         desiredCapabilities.setCapability("appium:platformName", "Android");
         desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
+        desiredCapabilities.setCapability("appium:appActivity", "com.android.calculator2.Calculator");
         desiredCapabilities.setCapability("appium:app", fileAPK.getAbsolutePath());
         return desiredCapabilities;
     }
