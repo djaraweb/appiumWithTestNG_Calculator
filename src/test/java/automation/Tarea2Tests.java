@@ -13,6 +13,11 @@ import utilities.Logs;
 
 public class Tarea2Tests extends BaseTests {
 
+    @Override
+    protected void setNameApkTesting() {
+        BaseTests.nameApkTesting = "calculator";
+    }
+
     @Test(groups = {regression, smoke})
     public void ejercicio1Test() {
         Logs.info("Hacer clic en DEG (parte superior izquierda)");

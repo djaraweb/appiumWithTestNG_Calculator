@@ -16,16 +16,21 @@ import java.net.URL;
 
 @Listeners({TestListeners.class, SuiteListeners.class})
 public abstract class BaseTests {
+    protected static String nameApkTesting;
     protected SoftAssert softAssert = new SoftAssert();
     protected Faker faker = new Faker();
     protected final String smoke = "smoke";
     protected final String regression = "regression";
     protected AndroidDriver driver;
 
+    protected abstract void setNameApkTesting();
+
     @BeforeMethod(alwaysRun = true)
     public void setUpMaster() {
         softAssert = new SoftAssert();
         Logs.info("Inicializando el driver");
+        setNameApkTesting();
+        setNameApkTesting();
         driver = initDriver();
         Logs.info("Guardando el driver en el DriverProvider");
         new DriverProvider().set(driver);
@@ -59,11 +64,17 @@ public abstract class BaseTests {
 
     private static DesiredCapabilities getDesiredCapabilities() {
         final var desiredCapabilities = new DesiredCapabilities();
-        final var fileAPK = new File("src/test/resources/apk/calculator.apk");
+        final var fileAPK = new File(String.format("src/test/resources/apk/%s.apk", nameApkTesting));
 
         desiredCapabilities.setCapability("appium:autoGrantPermissions", true);
         desiredCapabilities.setCapability("appium:platformName", "Android");
         desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
+        if (nameApkTesting.equals("draw")){
+            desiredCapabilities.setCapability("appium:appActivity", "com.simplemobiletools.draw.pro.activities.MainActivity");
+        }else {
+            desiredCapabilities.setCapability("appium:appActivity", "com.android.calculator2.Calculator");
+        }
+
         desiredCapabilities.setCapability("appium:app", fileAPK.getAbsolutePath());
         return desiredCapabilities;
     }
