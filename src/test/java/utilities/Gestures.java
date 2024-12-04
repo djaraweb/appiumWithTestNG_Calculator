@@ -191,7 +191,7 @@ public class Gestures {
         // 4. Muevo el puntero al elemento destino
         sequence.addAction(
                 pointer.createPointerMove(
-                        Duration.ZERO,
+                        Duration.ofMillis(1000),
                         PointerInput.Origin.viewport(),
                         destiny
                 )
