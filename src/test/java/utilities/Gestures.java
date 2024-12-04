@@ -1,5 +1,6 @@
 package utilities;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,17 @@ public class Gestures {
         return new DriverProvider().get();
     }
 
-    public static void tab(WebElement element) {
+    public static void tap(String cadena) {
+        final var arrayChar = cadena.toCharArray();
+        for (var c : arrayChar) {
+            String elementText = String.format("text(\"%s\")", c);
+            Gestures.tap(
+                    getDriver().findElement(AppiumBy.androidUIAutomator(elementText))
+            );
+        }
+    }
+
+    public static void tap(WebElement element) {
         final var centerPoint = getCenterPoint(element);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
 
@@ -46,7 +57,7 @@ public class Gestures {
         getDriver().perform(List.of(sequence)); // la aplico
     }
 
-    public static void doubleTab(WebElement element) {
+    public static void doubleTap(WebElement element) {
         final var centerPoint = getCenterPoint(element);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
 
@@ -77,7 +88,7 @@ public class Gestures {
         getDriver().perform(List.of(sequence)); // la aplico
     }
 
-    public static void longTab(WebElement element) {
+    public static void longTap(WebElement element) {
         final var centerPoint = getCenterPoint(element);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
 
